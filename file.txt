@@ -1,8 +1,1 @@
-Lor$nem Ipsum is
-simply
-dummy 
-text of
-\n the
-printing
-and typesetting 
-industry. 
+Lor$nem Ipsum is simply dummy text of \n the printing and typesetting  industry. 

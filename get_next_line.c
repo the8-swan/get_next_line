@@ -1,50 +1,58 @@
 #include "get_next_line.h"
 
-static char *pointer;
 static char *rest;
+
+int check_newline(char *str)
+{
+    size_t i;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '\0')
+        {
+            return i;
+        }
+        i++;
+    }
+    return 0;
+}
+
+char *return_string(int fd, char *str)
+{
+    char *strjoin;
+    ssize_t value;
+
+    while (!check_newline(str))
+    {
+        if (rest)
+        {
+            strjoin = ft_strjoin(rest, str);
+            free(rest);
+            rest = strjoin;
+        }
+        else
+        {
+            rest = ft_strdup(str);
+        }
+        ft_bzero(str, BUFFER_SIZE);
+        read(fd, str, BUFFER_SIZE);
+        value = read(fd, str, BUFFER_SIZE);
+        if (value <= 0)
+        {
+            free(str);
+            return NULL;
+        }
+    }
+
+    return strjoin;
+}
 
 char *get_next_line(int fd)
 {
-    char *ptr = malloc((BUFFER_SIZE + 1) * sizeof(char));
-    char *dup;
-    char *final;
-    size_t length = 0;
-    size_t l = 0;
-
-    char *p = NULL;
-    if (!ptr)
+    char *buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+    char *result;
+    if (!buffer)
         return NULL;
-    read(fd, ptr, BUFFER_SIZE);
-    ptr[BUFFER_SIZE] = '\0';
-    while (ft_strchr(ptr, '\n') == NULL)
-    {
-        dup = ft_strdup(ptr);
-        if (!pointer && rest)
-        {
-            pointer = rest;
-            final = ft_strjoin(pointer, dup);
-            pointer = final;
-        }
-        else if (!pointer)
-            pointer = dup;
-        else
-        {
-            final = ft_strjoin(pointer, dup);
-            pointer = final;
-        }
-        ft_bzero(ptr, BUFFER_SIZE);
-        read(fd, ptr, BUFFER_SIZE);
-    }
-    if ((p = ft_strchr(ptr, '\n')))
-    {
-        char *temp;
-        length = p - ptr;
-        l = ft_strlen(ptr) - length;
-        temp = pointer;
-        rest = ptr + (l);
-        pointer = NULL;
-        ft_bzero(ptr + length, l);
-        final = ft_strjoin(temp, ptr);
-    }
-    return (final);
+    result = return_string(fd, buffer);
+    return result;
 }
