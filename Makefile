@@ -4,12 +4,16 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = get_next_line.c get_next_line_utils.c main.c
 SRC_OBG =$(SRC:.c=.o)
 
+all : main
+
 main:$(SRC_OBG)
 	$(CC) $(CFLAGS) $(SRC_OBG) -o $@
 
-clean : $(SRC_OBG)
+clean : 
 	rm -f $(SRC_OBG)
+fclean : clean
+	rm -f main 
 
-re : clean main
+re : fclean all
 
-.PHONY : re clean 
+.PHONY : re clean all
