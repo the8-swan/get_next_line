@@ -1,23 +1,5 @@
 # include "get_next_line.h"
 
-char	*ft_strchr(const char *str, int c)
-{
-	if (str)
-	{
-		while (*str)
-		{
-			if (*str == (char)c)
-				return ((char *) str);
-			if (*(str + 1) == (char)c)
-				return ((char *) str + 1);
-			str++;
-		}
-		if (!c)
-			return ((char *)str);
-	}
-	return (NULL);
-}
-
 void	*ft_calloc(size_t num, size_t size)
 {
 	size_t			i;
@@ -95,4 +77,14 @@ size_t	ft_strlen(const char *str)
 		str++;
 	}
 	return (length);
+}
+
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+		((unsigned char *)s)[i++] = 0;
 }

@@ -5,15 +5,14 @@
 int main ()
 {
 	int fd1 = open("file.txt", O_RDONLY);
+
 	char *line1;
 	int i = 1;
 
-  line1 = get_next_line(fd1);
-
-	// while((line1 = get_next_line(fd1)) != NULL)
-	// {
-		printf("%d) 392-> %s\n",i,line1);
-	// 	free(line1);
-	// 	i++;
-	// }
+	while((line1 = get_next_line(fd1)) != NULL)
+	{
+		printf("%s\n",line1);
+		free(line1);
+		i++;
+	}
 }
