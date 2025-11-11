@@ -2,13 +2,18 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int main(void)
+int main ()
 {
-    int fd = open("file.txt",O_RDONLY);
-    char *ptr = get_next_line(fd);
-    while(ptr){
-       printf("%s \n",ptr);
-     ptr = get_next_line(fd);
-    }
-    return 0;
+	int fd1 = open("file.txt", O_RDONLY);
+	char *line1;
+	int i = 1;
+
+  line1 = get_next_line(fd1);
+
+	// while((line1 = get_next_line(fd1)) != NULL)
+	// {
+		printf("%d) 392-> %s\n",i,line1);
+	// 	free(line1);
+	// 	i++;
+	// }
 }
