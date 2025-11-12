@@ -41,11 +41,10 @@ char    *ft_leftc(char *line){
     if(( n = ft_checknewline(line)) == -1){
         return NULL;
     }
-     left = ft_substr(line,n,ft_strlen(line) - n);
-     if(!left)
+    left = ft_substr(line,n,ft_strlen(line) - n);
+    if(!left)
          return NULL;
      ft_bzero(line+n, ft_strlen(line) - n);
-
     return left;
 }
 

@@ -4,8 +4,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 80
-
+# define BUFFER_SIZE 40
 char    *get_next_line(int fd);
 char	*ft_strchr(const char *str, int c);
 size_t	ft_strlen(const char *str);
