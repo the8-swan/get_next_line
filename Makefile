@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
 
 SRC = get_next_line.c get_next_line_utils.c main.c
 SRC_OBG =$(SRC:.c=.o)
@@ -7,7 +7,7 @@ SRC_OBG =$(SRC:.c=.o)
 all : main
 
 main:$(SRC_OBG)
-	$(CC) $(CFLAGS) $(SRC_OBG) -o $@
+	$(CC) -g $(CFLAGS) $(SRC_OBG) -o $@
 
 clean : 
 	rm -f $(SRC_OBG)

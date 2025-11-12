@@ -41,10 +41,10 @@ char    *ft_leftc(char *line){
     if(( n = ft_checknewline(line)) == -1){
         return NULL;
     }
-    left = ft_substr(line,n,ft_strlen(line) - n);
+    left = ft_substr(line,n,ft_strlen(line) - n );
     if(!left)
          return NULL;
-     ft_bzero(line+n, ft_strlen(line) - n);
+    ft_bzero(line+n, ft_strlen(line) - n);
     return left;
 }
 
@@ -52,12 +52,15 @@ char    *ft_returned_ligne(char *buffer, char *left, int fd)
 {
     ssize_t r;
     char    *line;
-    while( ft_checknewline(buffer) < 0){
+    while( ft_checknewline(buffer) < 0)
+    {
         r = read(fd,buffer,BUFFER_SIZE);
-        if(r <= 0){
+        if(r == -1 ){
             free(left);
             return NULL;
         }
+        if(r == 0)
+            break;
         if(!left)
             left = ft_strdup("");
         line = left;
@@ -73,9 +76,11 @@ char    *get_next_line(int fd)
     char    *buffer;
     char    *line;
     static char     *left;
+    unsigned long number;
     if(fd < 0 || BUFFER_SIZE <= 0 )
         return NULL;
-    buffer =ft_calloc(BUFFER_SIZE + 1 , sizeof(char));
+    number = (BUFFER_SIZE + sizeof(char));
+    buffer =ft_calloc(number , 1);
     if(!buffer)
         return NULL;
     line = ft_returned_ligne(buffer,left,fd);
