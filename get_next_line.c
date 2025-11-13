@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 20:12:53 by obakri            #+#    #+#             */
+/*   Updated: 2025/11/13 20:30:06 by obakri           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "get_next_line.h"
 #include <stdio.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t		i;
-	size_t		slen;
-	char		*ptr;
+	size_t	i;
+	size_t	slen;
+	char	*ptr;
 
 	if (s == NULL)
 		return (NULL);
@@ -24,71 +35,78 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-int ft_checknewline(char* str){
-    int i;
-
-    i = 0;
-    while(str[i]){
-        if(str[i] == '\n')
-            return i+1;
-        i++;
-    }
-    return -1;
-}
-char    *ft_leftc(char *line){
-    int n ;
-    char    *left = NULL;
-    if(( n = ft_checknewline(line)) == -1){
-        return NULL;
-    }
-    left = ft_substr(line,n,ft_strlen(line) - n );
-    if(!left)
-         return NULL;
-    ft_bzero(line+n, ft_strlen(line) - n);
-    return left;
-}
-
-char    *ft_returned_ligne(char *buffer, char *left, int fd)
+int	ft_checknewline(char *str)
 {
-    ssize_t r;
-    char    *line;
-    while( ft_checknewline(buffer) < 0)
-    {
-        r = read(fd,buffer,BUFFER_SIZE);
-        if(r == -1 ){
-            free(left);
-            return NULL;
-        }
-        if(r == 0)
-            break;
-        if(!left)
-            left = ft_strdup("");
-        line = left;
-        left = ft_strjoin(line,buffer);
-        free(line);
-    }
-    return left;
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i + 1);
+		i++;
+	}
+	return (-1);
 }
 
-
-char    *get_next_line(int fd)
+char	*ft_leftc(char *line)
 {
-    char    *buffer;
-    char    *line;
-    static char     *left;
-    unsigned long number;
-    if(fd < 0 || BUFFER_SIZE <= 0 )
-        return NULL;
-    number = (BUFFER_SIZE + sizeof(char));
-    buffer =ft_calloc(number , 1);
-    if(!buffer)
-        return NULL;
-    line = ft_returned_ligne(buffer,left,fd);
-    if(!line){
-        free(buffer);
-        return NULL;
-    }
-    left = ft_leftc(line);
-    return line;
+	int		n;
+	char	*left;
+
+	n = ft_checknewline(line);
+	if (n == -1)
+		return (NULL);
+	left = ft_substr(line, n, ft_strlen(line) - n);
+	if (!left)
+		return (NULL);
+	ft_bzero(line + n, ft_strlen(line) - n);
+	return (left);
 }
 
+char	*ft_returned_ligne(char *buffer, char *left, int fd)
+{
+	ssize_t	r;
+	char	*line;
+
+	while (ft_checknewline(buffer) < 0)
+	{
+		r = read(fd, buffer, BUFFER_SIZE);
+		if (r == -1)
+		{
+			free(left);
+			return (NULL);
+		}
+		if (r == 0)
+			break ;
+		if (!left)
+			left = ft_strdup("");
+		line = left;
+		left = ft_strjoin(line, buffer);
+		free(line);
+	}
+	return (left);
+}
+
+char	*get_next_line(int fd)
+{
+	char			*buffer;
+	char			*line;
+	static char		*left;
+	unsigned long	number;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	number = (BUFFER_SIZE + sizeof(char));
+	buffer = ft_calloc(number, sizeof(char));
+	if (!buffer)
+		return (NULL);
+	line = ft_returned_ligne(buffer, left, fd);
+	if (!line)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	left = ft_leftc(line);
+	return (line);
+}

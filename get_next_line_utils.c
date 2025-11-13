@@ -1,4 +1,16 @@
-# include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/13 20:33:00 by obakri            #+#    #+#             */
+/*   Updated: 2025/11/13 20:35:31 by obakri           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
 
 void	*ft_calloc(size_t num, size_t size)
 {
@@ -35,7 +47,6 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
@@ -65,7 +76,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-
 size_t	ft_strlen(const char *str)
 {
 	int	length;
@@ -78,7 +88,6 @@ size_t	ft_strlen(const char *str)
 	}
 	return (length);
 }
-
 
 void	ft_bzero(void *s, size_t n)
 {
