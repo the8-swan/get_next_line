@@ -55,11 +55,16 @@ char	*ft_leftc(char *line)
 	char	*left;
 
 	n = ft_checknewline(line);
-	if (n == -1)
+	if (n == -1){
 		return (NULL);
+	}
 	left = ft_substr(line, n, ft_strlen(line) - n);
-	if (!left)
+	if (!left || left[0] == '\0')
+	{
+		free(left);
+		left = NULL;
 		return (NULL);
+	}
 	ft_bzero(line + n, ft_strlen(line) - n);
 	return (left);
 }
@@ -67,7 +72,7 @@ char	*ft_leftc(char *line)
 char	*ft_returned_ligne(char *buffer, char *left, int fd)
 {
 	ssize_t	r;
-	char	*line;
+	char	*tmp;
 
 	while (ft_checknewline(buffer) < 0)
 	{
@@ -77,14 +82,15 @@ char	*ft_returned_ligne(char *buffer, char *left, int fd)
 			free(left);
 			return (NULL);
 		}
-		if (r == 0)
+		else if (r == 0)
+		{
 			break ;
+		}
 		if (!left)
 			left = ft_strdup("");
-		line = left;
-		left = ft_strjoin(line, buffer);
-		free(line);
-		line = NULL;
+		tmp = left;
+		left = ft_strjoin(tmp, buffer);
+		free(tmp);
 	}
 	return (left);
 }
@@ -103,12 +109,10 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	line = ft_returned_ligne(buffer, left, fd);
+	free(buffer);
+	
 	if (!line)
-	{
-		free(buffer);
-		free(left);
 		return (NULL);
-	}
 	left = ft_leftc(line);
 	return (line);
 }

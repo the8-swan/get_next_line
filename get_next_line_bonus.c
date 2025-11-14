@@ -35,7 +35,7 @@ char	*ft_leftc(char *line)
 	if (n == -1)
 		return (NULL);
 	left = ft_substr(line, n, ft_strlen(line) - n);
-	if (!left)
+	if (!left || !left[0])
 		return (NULL);
 	ft_bzero(line + n, ft_strlen(line) - n);
 	return (left);
@@ -84,5 +84,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	left[fd] = ft_leftc(line);
+	free(buffer);
 	return (line);
 }

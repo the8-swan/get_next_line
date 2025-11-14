@@ -9,11 +9,11 @@ SRC_OBG_BONUS =$(SRC_BONUS:.c=.o)
 
 all : main
 
-#main:$(SRC_OBG)
-#	$(CC) -g $(CFLAGS) $(SRC_OBG) -o $@
+main:$(SRC_OBG)
+	$(CC) -g $(CFLAGS) $(SRC_OBG) -o $@
 
-main : $(SRC_OBG_BONUS)
-	$(CC) -g $(CFLAGS) $(SRC_OBG_BONUS) -o $@
+# main : $(SRC_OBG_BONUS)
+# 	$(CC) -g $(CFLAGS) $(SRC_OBG_BONUS) -o $@
 
 clean : 
 	rm -f $(SRC_OBG) $(SRC_OBG_BONUS)
