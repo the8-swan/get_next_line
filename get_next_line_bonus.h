@@ -26,6 +26,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 size_t	ft_strlen(const char *str);
 
-void	ft_bzero(void *s, size_t n);:wq
+void	ft_bzero(void *s, size_t n);
 
 #endif

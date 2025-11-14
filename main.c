@@ -9,7 +9,6 @@ int main ()
 
 	char *line1;
 	char *line2;
-	int i = 1;
 	line1 = get_next_line(fd1);
 	printf("%s",line1);
 	line2 = get_next_line(fd2);
@@ -19,6 +18,8 @@ int main ()
 	line2 = get_next_line(fd2);
 	printf("%s",line2);
 	
+	free(line1);
+	free(line2);
 	// while((line1 = get_next_line(fd1)) != NULL)
 	// {
 	// 	printf("%s",line1);

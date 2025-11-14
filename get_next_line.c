@@ -84,6 +84,7 @@ char	*ft_returned_ligne(char *buffer, char *left, int fd)
 		line = left;
 		left = ft_strjoin(line, buffer);
 		free(line);
+		line = NULL;
 	}
 	return (left);
 }
@@ -105,6 +106,7 @@ char	*get_next_line(int fd)
 	if (!line)
 	{
 		free(buffer);
+		free(left);
 		return (NULL);
 	}
 	left = ft_leftc(line);
