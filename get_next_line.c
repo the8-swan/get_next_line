@@ -6,7 +6,7 @@
 /*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:12:53 by obakri            #+#    #+#             */
-/*   Updated: 2025/11/13 20:30:06 by obakri           ###   ########.fr       */
+/*   Updated: 2025/11/14 22:15:35 by obakri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -55,9 +55,8 @@ char	*ft_leftc(char *line)
 	char	*left;
 
 	n = ft_checknewline(line);
-	if (n == -1){
+	if (n == -1)
 		return (NULL);
-	}
 	left = ft_substr(line, n, ft_strlen(line) - n);
 	if (!left || left[0] == '\0')
 	{
@@ -88,8 +87,11 @@ char	*ft_returned_ligne(char *buffer, char *left, int fd)
 		}
 		if (!left)
 			left = ft_strdup("");
+		buffer[r] = '\0';
 		tmp = left;
 		left = ft_strjoin(tmp, buffer);
+		if (!left)
+			left = NULL;
 		free(tmp);
 	}
 	return (left);
@@ -105,14 +107,17 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	number = (BUFFER_SIZE + sizeof(char));
-	buffer = ft_calloc(number, sizeof(char));
+	buffer = malloc(number * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	line = ft_returned_ligne(buffer, left, fd);
 	free(buffer);
-	
 	if (!line)
+	{
+		free(line);
+		free(left);
 		return (NULL);
+	}
 	left = ft_leftc(line);
 	return (line);
 }

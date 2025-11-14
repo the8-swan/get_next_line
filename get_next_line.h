@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 100000000
+//# define BUFFER_SIZE 10000000
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s1);

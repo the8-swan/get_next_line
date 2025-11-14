@@ -58,6 +58,7 @@ char	*ft_returned_ligne(char *buffer, char *left, int fd)
 			break ;
 		if (!left)
 			left = ft_strdup("");
+		buffer[r] = '\0';
 		line = left;
 		left = ft_strjoin(line, buffer);
 		free(line);

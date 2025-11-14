@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 // # define BUFFER_SIZE 100000000
- # define MAX_FD 1024
+# define MAX_FD 1024
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
