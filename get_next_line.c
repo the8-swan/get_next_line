@@ -6,13 +6,13 @@
 /*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:12:53 by obakri            #+#    #+#             */
-/*   Updated: 2025/11/14 22:15:35 by obakri           ###   ########.fr       */
+/*   Updated: 2025/11/15 16:53:42 by obakri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	slen;
@@ -82,9 +82,7 @@ char	*ft_returned_ligne(char *buffer, char *left, int fd)
 			return (NULL);
 		}
 		else if (r == 0)
-		{
 			break ;
-		}
 		if (!left)
 			left = ft_strdup("");
 		buffer[r] = '\0';
@@ -108,6 +106,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	number = (BUFFER_SIZE + sizeof(char));
 	buffer = malloc(number * sizeof(char));
+	buffer[0]='\0';
 	if (!buffer)
 		return (NULL);
 	line = ft_returned_ligne(buffer, left, fd);

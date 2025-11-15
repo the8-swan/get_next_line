@@ -6,28 +6,11 @@
 /*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:33:00 by obakri            #+#    #+#             */
-/*   Updated: 2025/11/13 20:35:31 by obakri           ###   ########.fr       */
+/*   Updated: 2025/11/15 16:55:06 by obakri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	size_t			i;
-	unsigned char	*ptr;
-
-	i = 0;
-	ptr = malloc(num * size);
-	if (!ptr)
-		return (NULL);
-	while (i < num * size)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-	return ((void *)ptr);
-}
 
 char	*ft_strdup(const char *s1)
 {

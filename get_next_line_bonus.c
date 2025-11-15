@@ -6,7 +6,7 @@
 /*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 19:55:21 by obakri            #+#    #+#             */
-/*   Updated: 2025/11/13 20:12:07 by obakri           ###   ########.fr       */
+/*   Updated: 2025/11/15 17:34:34 by obakri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@ char	*ft_leftc(char *line)
 	if (n == -1)
 		return (NULL);
 	left = ft_substr(line, n, ft_strlen(line) - n);
-	if (!left || !left[0])
+	if (!left || left[0] == '\0')
+	{
+		free(left);
+		left = NULL;
 		return (NULL);
+	}
 	ft_bzero(line + n, ft_strlen(line) - n);
 	return (left);
 }
@@ -44,7 +48,7 @@ char	*ft_leftc(char *line)
 char	*ft_returned_ligne(char *buffer, char *left, int fd)
 {
 	ssize_t	r;
-	char	*line;
+	char	*tmp;
 
 	while (ft_checknewline(buffer) < 0)
 	{
@@ -59,10 +63,11 @@ char	*ft_returned_ligne(char *buffer, char *left, int fd)
 		if (!left)
 			left = ft_strdup("");
 		buffer[r] = '\0';
-		line = left;
-		left = ft_strjoin(line, buffer);
-		free(line);
-		line = NULL;
+		tmp = left;
+		left = ft_strjoin(tmp, buffer);
+		free(tmp);
+		if (!left)
+			left = NULL;
 	}
 	return (left);
 }
@@ -76,15 +81,17 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
 	buffer = malloc((BUFFER_SIZE + sizeof(char)) * sizeof(char));
+	buffer[0] = '\0';
 	if (!buffer)
 		return (NULL);
 	line = ft_returned_ligne(buffer, left[fd], fd);
+	free(buffer);
 	if (!line)
 	{
-		free(buffer);
+		free(line);
+		free(left[fd]);
 		return (NULL);
 	}
 	left[fd] = ft_leftc(line);
-	free(buffer);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: obakri <obakri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:31:30 by obakri            #+#    #+#             */
-/*   Updated: 2025/11/13 20:32:43 by obakri           ###   ########.fr       */
+/*   Updated: 2025/11/15 17:33:04 by obakri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-//# define BUFFER_SIZE 10000000
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 size_t	ft_strlen(const char *str);
 
